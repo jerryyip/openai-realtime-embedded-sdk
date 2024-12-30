@@ -38,8 +38,8 @@ static void oai_onconnectionstatechange_task(PeerConnectionState state,
   } else if (state == PEER_CONNECTION_CONNECTED) {
 #ifndef LINUX_BUILD
     StackType_t *stack_memory = (StackType_t *)heap_caps_malloc(
-        20000 * sizeof(StackType_t), MALLOC_CAP_SPIRAM);
-    xTaskCreateStaticPinnedToCore(oai_send_audio_task, "audio_publisher", 20000,
+        40000 * sizeof(StackType_t), MALLOC_CAP_SPIRAM);
+    xTaskCreateStaticPinnedToCore(oai_send_audio_task, "audio_publisher", 40000,
                                   NULL, 7, stack_memory, &task_buffer, 0);
 #endif
   }

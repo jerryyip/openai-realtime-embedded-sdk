@@ -8,6 +8,8 @@
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #endif
 
+extern char g_openai_api_key_buf[128];
+
 esp_err_t oai_http_event_handler(esp_http_client_event_t *evt) {
   static int output_len;
   switch (evt->event_id) {
@@ -77,7 +79,7 @@ void oai_http_request(char *offer, char *answer) {
   config.event_handler = oai_http_event_handler;
   config.user_data = answer;
 
-  snprintf(answer, MAX_HTTP_OUTPUT_BUFFER, "Bearer %s", OPENAI_API_KEY);
+  snprintf(answer, MAX_HTTP_OUTPUT_BUFFER, "Bearer %s", g_openai_api_key_buf);
 
   esp_http_client_handle_t client = esp_http_client_init(&config);
   esp_http_client_set_method(client, HTTP_METHOD_POST);
